@@ -10,4 +10,5 @@ class Movie < ActiveRecord::Base
       all_ratings.push(value)
     end
     @rating=value
+  end
 end
