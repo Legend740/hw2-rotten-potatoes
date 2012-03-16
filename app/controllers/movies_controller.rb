@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     if (params[:id])
-      Movie.comparing_field = params[:id]
+      # Movie.comparing_field = params[:id]
       @movies.sort
     end
   end
