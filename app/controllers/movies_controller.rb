@@ -10,7 +10,8 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     if (params[:id])
       # Movie.comparing_field = params[:id]
-      @movies.sort
+      # @tags = Tag.find(:all, :limit => 20, :conditions => "id != 22 and id != 47" , :order => "count DESC")
+      @movies = Movie.find(:all, :order => "title")
     end
   end
 
