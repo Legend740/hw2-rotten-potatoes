@@ -17,10 +17,12 @@
       %th More Info
   %tbody
     - @movies.each do |movie|
-      %tr
-        %td= movie.title 
-        %td= movie.rating
-        %td= movie.release_date
-        %td= link_to "More about #{movie.title}", movie_path(movie)
+      = if (!params[:ratings].key?(movie.rating))
+        %tr
+          %td= movie.title 
+          %td= movie.rating
+          %td= movie.release_date
+          %td= link_to "More about #{movie.title}", movie_path(movie)
+      = end
 
 = link_to 'Add new movie', new_movie_path
