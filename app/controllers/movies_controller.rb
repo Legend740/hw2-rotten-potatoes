@@ -42,12 +42,4 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
-  def sort
-    sorted_list = []
-    @movies.each do |movie|
-      sorted_list.push(movie.title)
-    end
-    sorted_list.sort
-  end
-
 end
