@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    filtered_ratings = @all_ratings #- params[:ratings].keys
+    filtered_ratings = ["P"] # @all_ratings - params[:ratings].keys
     if (params[:sort] == "title")
       @movies = Movie.find(:all, :condition => "rating => #{filtered_ratings}", :order => "title")
     elsif (params[:sort] == "release_date")
