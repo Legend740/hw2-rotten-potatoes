@@ -4,7 +4,7 @@
 %table#movies
   %thead
     %tr
-      %th#title_header= link_to "Movie Title", "https://google.com"
+      %th= link_to "Movie Title", {:controller => "movies"}, :id => "title_header"
       %th Rating
       %th#release_date_header= link_to " Release Date", "https://facebook.com"
       %th More Info

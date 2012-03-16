@@ -8,6 +8,10 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    if (params[:id])
+      Movie.comparing_field = params[:id]
+      @movies.sort
+    end
   end
 
   def new
@@ -36,6 +40,14 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+
+  def sort
+    sorted_list = []
+    @movies.each do |movie|
+      sorted_list.push(movie.title)
+    end
+    sorted_list.sort
   end
 
 end
