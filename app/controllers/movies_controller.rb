@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     elsif (params[:sort] == "release_date")
       @movies = Movie.find(:all, :order => "release_date").where(:rating => filtered_ratings)
     elsif (params[:sort] == nil)
-      @movies = Movie.where(:rating => filtered_ratings)
+      @movies = Movie.find(:all, :conditions => [ "rating IN (?)", filtered_ratings]) #.where(:rating => filtered_ratings)
     end
   end
 
