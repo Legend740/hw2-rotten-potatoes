@@ -10,9 +10,9 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     filtered_ratings = ["G", "P"] # @all_ratings - params[:ratings].keys
     if (params[:sort] == "title")
-      @movies = Movie.find(:all, :order => "title").where(:rating => filtered_ratings)
+      @movies = Movie.find(:all, :conditions => {:rating => filtered_ratings}, :order => "title")
     elsif (params[:sort] == "release_date")
-      @movies = Movie.find(:all, :order => "release_date").where(:rating => filtered_ratings)
+      @movies = Movie.find(:all, :conditions => {:rating => filtered_ratings}, :order => "release_date")
     elsif (params[:sort] == nil)
       @movies = Movie.find(:all, :conditions => {:rating => filtered_ratings}) #.where(:rating => filtered_ratings)
     end
