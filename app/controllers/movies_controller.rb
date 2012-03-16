@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.all_ratings
     if (params[:sort] == "title")
       @movies = Movie.find(:all, :order => "title")
     elsif (params[:sort] == "release_date")
