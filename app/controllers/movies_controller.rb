@@ -7,11 +7,12 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
-    if (params[:id])
-      # Movie.comparing_field = params[:id]
-      # @tags = Tag.find(:all, :limit => 20, :conditions => "id != 22 and id != 47" , :order => "count DESC")
+    if (params[:id] == "title_header")
       @movies = Movie.find(:all, :order => "title")
+    elsif (params[:id] == "release_date_header")
+      @movies = Movie.find(:all, :order => "release_date")
+    elsif (params[:id] == nil)
+      @movies = Movie.all
     end
   end
 
