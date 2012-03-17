@@ -10,20 +10,19 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     # Get the remembered settings
-    if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil)
-      if (session[:filter] != nil or session[:ratings] != nil or session[:sort] != nil)
-        if (params[:filter] == nil and session[:filter] != nil)
-          params[:filter] = session[:filter]
-        end
-        if (params[:ratings] == nil and session[:ratings] != nil)
-          params[:ratings] = session[:ratings]
-        end
-        if (params[:sort] == nil and session[:sort] != nil)
-          params[:sort] = session[:sort]
-        end
-        puts "[REDIRECTED]"
-        redirect_to movies_path(:filter => params[:filter], :sort => params[:sort], :ratings => params[:ratings]) 
+    if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil and 
+              (session[:filter] != nil or session[:ratings] != nil or session[:sort] != nil))
+      if (params[:filter] == nil and session[:filter] != nil)
+        params[:filter] = session[:filter]
       end
+      if (params[:ratings] == nil and session[:ratings] != nil)
+        params[:ratings] = session[:ratings]
+      end
+      if (params[:sort] == nil and session[:sort] != nil)
+        params[:sort] = session[:sort]
+      end
+      puts "[REDIRECTED]"
+      redirect_to movies_path(:filter => params[:filter], :sort => params[:sort], :ratings => params[:ratings]) 
     else
 
       if (params[:filter] != nil and params[:filter] != "[]")
