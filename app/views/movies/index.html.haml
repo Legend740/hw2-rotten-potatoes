@@ -5,7 +5,7 @@
   Include: 
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", :checked => (@filtered_ratings.find_index(rating) ? "true" : "false")
+    = check_box_tag "ratings[#{rating}]", :value => 1, :checked => (@filtered_ratings.find_index(rating) ? "true" : "false")
   = submit_tag 'Refresh', :class => "ratings_submit"
 
 %table#movies
