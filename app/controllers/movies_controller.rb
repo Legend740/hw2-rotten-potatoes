@@ -8,9 +8,11 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    if ([nil, []].find_index(params[:filter])) # if params[:filter] has something in it
+    if (params[:filter] != nil)
       @filtered_ratings = params[:filter].scan(/[\w-]+/)
-      @filtered_ratings.length = [] if @filtered_rating.length == 4
+      if (@filtered_rating.length == 4)
+        @filtered_ratings.length = []
+      end
     else
       @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
     end
