@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     # Get the remembered settings
     puts "[Check] for remembered settings"
     puts session[:sort]
-    puts title[:sort]
+    puts params[:sort]
     if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil)
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
