@@ -8,6 +8,10 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+    if (params[:ratings])
+      params[:ratings].keys.each do |rating|
+        
+      end
     filtered_ratings = params[:ratings] ? params[:ratings].keys : @all_ratings
     if (params[:sort] == "title")
       if (params[:ratings])
