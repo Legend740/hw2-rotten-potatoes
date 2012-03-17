@@ -63,12 +63,12 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
-    session.clear
     redirect_to movies_path
   end
 
   def edit
     @movie = Movie.find params[:id]
+    session.clear
   end
 
   def update
