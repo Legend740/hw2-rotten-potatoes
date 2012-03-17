@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
       elsif (params[:sort] == nil and session[:sort] != nil)
         params[:sort] = session[:sort]
       end
-      redirect_to :action => "index", :params => {:filter => params[:filter], :ratings => params[:ratings], :sort => params[:sort]}
+      redirect_to movies_path(:filter => params[:filter], :ratings => params[:ratings], :sort => params[:sort])
     else
       if (params[:filter] != nil)
         @filtered_ratings = params[:filter].scan(/[\w-]+/)
