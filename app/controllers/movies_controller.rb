@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     # Get the remembered settings
-    if (params[:filter] == nil or params[:ratings] == nil or params[:sort] == nil)
+    if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil)
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
       elsif (params[:ratings] == nil and session[:ratings] != nil)
