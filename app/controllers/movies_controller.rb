@@ -15,13 +15,9 @@ class MoviesController < ApplicationController
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
       end
-#      if (params[:ratings] == nil and session[:ratings] != nil)
-#        params[:ratings] = session[:ratings]
-#      end
       if (params[:sort] == nil and session[:sort] != nil)
         params[:sort] = session[:sort]
       end
-      puts "[REDIRECTED]"
       redirect_to movies_path(:filter => params[:filter], :sort => params[:sort], :ratings => params[:ratings]) 
     else
 
@@ -69,7 +65,6 @@ class MoviesController < ApplicationController
 
   def edit
     @movie = Movie.find params[:id]
-    session.clear
   end
 
   def update
