@@ -10,42 +10,45 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     # Get the remembered settings
-    if (params[:filter] == nil and session[:filter] != nil)
-      params[:filter] = session[:filter]
-    elsif (params[:ratings] == nil and session[:ratings] != nil)
-      params[:ratings] = session[:ratings]
-    elsif (params[:sort] == nil and session[:sort] != nil)
-      params[:sort] = session[:sort]
-    end
-
-    if (params[:filter] != nil)
-      @filtered_ratings = params[:filter].scan(/[\w-]+/)
-      session[:filter] = params[:filter]
+    if (params[:filter] == nil or params[:ratings] == nil or params[:sort] == nil)
+      if (params[:filter] == nil and session[:filter] != nil)
+        params[:filter] = session[:filter]
+      elsif (params[:ratings] == nil and session[:ratings] != nil)
+        params[:ratings] = session[:ratings]
+      elsif (params[:sort] == nil and session[:sort] != nil)
+        params[:sort] = session[:sort]
+      end
+      redirect_to { :filter => params[:filter], :ratings => params[:ratings], :sort => params[:sort] }
     else
-      @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
-    end
-    
-    session[:ratings] = params[:ratings]
-    if (params[:sort] == "title") # Sort by titles
-      session[:sort] = "title"
-      if (params[:ratings] or params[:filter]) # filter ratings
-        @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
+      if (params[:filter] != nil)
+        @filtered_ratings = params[:filter].scan(/[\w-]+/)
+        session[:filter] = params[:filter]
       else
-        @movies = Movie.find(:all, :order => "title")
+        @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
       end
-    elsif (params[:sort] == "release_date") # Sort by release_date
-      session[:sort] = "release_date"
-      if (params[:ratings] or params[:filter]) # filter ratings
-        @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "release_date")
-      else
-        @movies = Movie.find(:all, :order => "release_date")
-      end
-    elsif (params[:sort] == nil)
-      session.delete(:sort)
-      if (params[:ratings] or params[:filter]) # filter ratings
-        @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings})
-      else
-        @movies = Movie.all
+      
+      session[:ratings] = params[:ratings]
+      if (params[:sort] == "title") # Sort by titles
+        session[:sort] = "title"
+        if (params[:ratings] or params[:filter]) # filter ratings
+          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
+        else
+          @movies = Movie.find(:all, :order => "title")
+        end
+      elsif (params[:sort] == "release_date") # Sort by release_date
+        session[:sort] = "release_date"
+        if (params[:ratings] or params[:filter]) # filter ratings
+          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "release_date")
+        else
+          @movies = Movie.find(:all, :order => "release_date")
+        end
+      elsif (params[:sort] == nil)
+        session.delete(:sort)
+        if (params[:ratings] or params[:filter]) # filter ratings
+          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings})
+        else
+          @movies = Movie.all
+        end
       end
     end
   end
