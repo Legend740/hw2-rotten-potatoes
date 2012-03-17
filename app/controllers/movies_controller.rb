@@ -8,11 +8,25 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+
+    # Get the remembered settings
+    if (params[:filter] == nil and session[:filter] != nil)
+      params[:filter] = session[:filter]
+    elsif (params[:ratings] == nil and session[:ratings] != nil)
+      params[:ratings] = session[:ratings]
+    elsif (params[:sort] == nil and session[:sort] != nil)
+      params[:sort] = session[:sort]
+    end
+
     if (params[:filter] != nil)
       @filtered_ratings = params[:filter].scan(/[\w-]+/)
+      session[:filter] = params[:filter]
     else
       @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
     end
+    
+    session[:sort] = params[:sort]
+    session[:ratings] = params[:ratings]
     if (params[:sort] == "title") # Sort by titles
       if (params[:ratings] or params[:filter]) # filter ratings
         @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
