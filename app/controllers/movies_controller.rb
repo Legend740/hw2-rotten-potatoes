@@ -10,18 +10,17 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     # Get the remembered settings
-    puts "[Check] for remembered settings"
-    puts session[:sort]
-    puts params[:sort]
     if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil)
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
-      elsif (params[:ratings] == nil and session[:ratings] != nil)
+      end
+      if (params[:ratings] == nil and session[:ratings] != nil)
         params[:ratings] = session[:ratings]
-      elsif (params[:sort] == nil and session[:sort] != nil)
+      end
+      if (params[:sort] == nil and session[:sort] != nil)
         params[:sort] = session[:sort]
       end
-      redirect_to movies_path(:filter => params[:filter], :sort => params[:sort]) #:ratings => params[:ratings], 
+      redirect_to movies_path(:filter => params[:filter], :sort => params[:sort], :ratings => params[:ratings]) 
     else
       if (params[:filter] != nil and params[:filter] != "[]")
         @filtered_ratings = params[:filter].scan(/[\w-]+/)
@@ -32,10 +31,7 @@ class MoviesController < ApplicationController
       
       session[:ratings] = params[:ratings]
       if (params[:sort] == "title") # Sort by titles
-        puts "[LOOOOKKKK] setting session[:sort] to be \"title\""
         session[:sort] = "title"
-        puts "[LOOOOKKKK] session[:sort] should be \"title\""
-        puts session[:sort]
         if (params[:ratings] or params[:filter]) # filter ratings
           @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
         else
