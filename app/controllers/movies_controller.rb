@@ -37,19 +37,19 @@ class MoviesController < ApplicationController
       session[:ratings] = params[:ratings]
       if (params[:sort] == "title") # Sort by titles
         if (params[:ratings] or params[:filter]) # filter ratings
-          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
+          @movies = Movie.find(:all, :conditions => {:rating => (@filtered_ratings==[] ? @all_ratings : @filtered_ratings)}, :order => "title")
         else
           @movies = Movie.find(:all, :order => "title")
         end
       elsif (params[:sort] == "release_date") # Sort by release_date
         if (params[:ratings] or params[:filter]) # filter ratings
-          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "release_date")
+          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings==[] ? @all_ratings : @filtered_ratings)}, :order => "release_date")
         else
           @movies = Movie.find(:all, :order => "release_date")
         end
       elsif (params[:sort] == nil)
         if (params[:ratings] or params[:filter]) # filter ratings
-          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings})
+          @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings==[] ? @all_ratings : @filtered_ratings)})
         else
           @movies = Movie.all
         end
