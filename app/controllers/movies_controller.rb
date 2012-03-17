@@ -28,10 +28,10 @@ class MoviesController < ApplicationController
       end
       
       session[:ratings] = params[:ratings]
-      puts "[LOOOOKKKK] params[:sort] should be \"title\""
-      puts params[:sort]
       if (params[:sort] == "title") # Sort by titles
+        puts "[LOOOOKKKK] setting session[:sort] to be \"title\""
         session[:sort] = "title"
+        puts "[LOOOOKKKK] session[:sort] should be \"title\""
         if (params[:ratings] or params[:filter]) # filter ratings
           @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
         else
