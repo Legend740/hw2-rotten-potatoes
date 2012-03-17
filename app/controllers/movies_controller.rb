@@ -9,8 +9,7 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     if (params[:sort] == "title")
-      selected_ratings = params[:ratings] ? params[:ratings].keys : []
-      filtered_ratings = @all_ratings - selected_ratings
+      filtered_ratings = @all_ratings - (params[:ratings] ? params[:ratings].keys : [])
       if (params[:ratings])
         @movies = Movie.find(:all, :conditions => {:rating => filtered_ratings}, :order => "title")
       else
