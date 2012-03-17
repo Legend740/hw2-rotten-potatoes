@@ -15,9 +15,9 @@ class MoviesController < ApplicationController
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
       end
-      if (params[:ratings] == nil and session[:ratings] != nil)
-        params[:ratings] = session[:ratings]
-      end
+#      if (params[:ratings] == nil and session[:ratings] != nil)
+#        params[:ratings] = session[:ratings]
+#      end
       if (params[:sort] == nil and session[:sort] != nil)
         params[:sort] = session[:sort]
       end
