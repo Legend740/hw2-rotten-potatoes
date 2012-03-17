@@ -10,12 +10,11 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     if (params[:filter] != nil)
       @filtered_ratings = params[:filter].scan(/[\w-]+/)
-      if (@filtered_ratings.length == 4)
-        @filtered_ratings = []
-      end
     else
       @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
     end
+    puts "[LOOKKKKKK]"
+    puts @filtered_ratings
     if (params[:sort] == "title") # Sort by titles
       if (params[:ratings]) # filter ratings
         @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings}, :order => "title")
