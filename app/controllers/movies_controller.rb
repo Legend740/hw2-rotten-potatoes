@@ -20,6 +20,7 @@ class MoviesController < ApplicationController
       if (params[:sort] == nil and session[:sort] != nil)
         params[:sort] = session[:sort]
       end
+      puts "[REDIRECTED]"
       redirect_to movies_path(:filter => params[:filter], :sort => params[:sort], :ratings => params[:ratings]) 
     else
 
@@ -62,6 +63,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
+    session.clear
     redirect_to movies_path
   end
 
