@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
         session[:filter] = params[:filter]
       else
         @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
-        session[:filter] = nil
+        session[:filter] = "[]"
       end
       
       session[:sort] = params[:sort]
