@@ -10,8 +10,8 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     if (params[:filter] != nil)
       @filtered_ratings = params[:filter].scan(/[\w-]+/)
-      if (@filtered_rating.length == 4)
-        @filtered_ratings.length = []
+      if (@filtered_rating != nil and @filtered_rating.length == 4)
+        @filtered_ratings = []
       end
     else
       @filtered_ratings = params[:ratings] ? params[:ratings].keys : []
