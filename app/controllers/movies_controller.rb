@@ -10,6 +10,9 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     # Get the remembered settings
+    puts "[Check] for remembered settings"
+    puts session[:sort]
+    puts title[:sort]
     if (params[:filter] == nil and params[:ratings] == nil and params[:sort] == nil)
       if (params[:filter] == nil and session[:filter] != nil)
         params[:filter] = session[:filter]
@@ -46,7 +49,7 @@ class MoviesController < ApplicationController
           @movies = Movie.find(:all, :order => "release_date")
         end
       elsif (params[:sort] == nil)
-        session.delete(:sort)
+        session[:sort] = nil
         if (params[:ratings] or params[:filter]) # filter ratings
           @movies = Movie.find(:all, :conditions => {:rating => @filtered_ratings})
         else
