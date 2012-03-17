@@ -9,10 +9,8 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     if (params[:filter] != nil)
-      puts "[LOOOKKKK]"
-      puts params[:filter]
-      @filtered_ratings = params[:filter].gsub(/%22/, "\"").gsub(/%22/, "\"").gsub(/%5B/, "[").gsub(/%5D/, "]").gsub(/%2C/, ",").scan(/[\w-]+/)
-      if (@filtered_rating != nil and @filtered_rating.length == 4)
+      @filtered_ratings = params[:filter].scan(/[\w-]+/)
+      if (@filtered_ratings.length == 4)
         @filtered_ratings = []
       end
     else
